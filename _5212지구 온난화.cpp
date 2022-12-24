@@ -5,7 +5,6 @@ using namespace std;
 /*
     https://www.acmicpc.net/problem/5212
     지구 온난화
-    
 */
 deque<pair<int, int>>earth;
 int r, c;
