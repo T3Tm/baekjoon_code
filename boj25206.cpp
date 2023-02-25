@@ -19,7 +19,7 @@ int main(){
         t+=b;
         sum+=convert[c]*b;
     }
-    cout.precision(7);
+    cout.precision(6);
     cout << sum/t;
     return 0;
 }
