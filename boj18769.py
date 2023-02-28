@@ -15,7 +15,6 @@ c*r+column
 
 
 '''
-from heapq import*
 import sys
 readLine=sys.stdin.readline
 def find(a):
