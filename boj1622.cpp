@@ -28,7 +28,7 @@ void countAlpha(string &temp,int bit[]){
 }
 int main(){
     fast;
-    while(cin >> a >> b){
+    while(getline(cin,a),getline(cin,b)){
         int bit1[26]={0},bit2[26]={0};
         string result;
         countAlpha(a,bit1);
@@ -42,6 +42,5 @@ int main(){
         }
         cout <<result <<endl;
     }
-
     return 0;
 }
