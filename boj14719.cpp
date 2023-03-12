@@ -33,10 +33,10 @@ int main(){
     }
     sort(value.begin(),value.end(),cmp);
     for(int i=1;i<w;i++){
-        for(int idx=min(value[i].second,value[i-1].second)+1;idx<max(value[i].second,value[i-1].second);idx++){
-            if(!arr[value[i].first][idx]){
-                result+=(value[i].first-idxvalue[idx]);
-                for(int j=idxvalue[idx];j<=value[i].first;j++){
+        for(int idx=min(value[i].second,value[i-1].second)+1;idx<max(value[i].second,value[i-1].second);idx++){//2번째로 큰 수 에서 1번째로 큰 수의 인덱스 사이에 빗물 채우기.
+            if(!arr[value[i].first][idx]){//이미 빗물 채워있으면 넣지 말기
+                result+=(value[i].first-idxvalue[idx]);//빗물 채운 만큼 더해주기
+                for(int j=idxvalue[idx];j<=value[i].first;j++){//빗물 채워놓기
                     arr[j][idx]=1;
                 }
             }
