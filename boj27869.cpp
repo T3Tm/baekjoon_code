@@ -41,12 +41,7 @@ int main() {
             int s, e;
             cin >> s >> e;
             auto lastDay = --deleteDay.lower_bound(e);//(lastday보다 하나 작은 값을 통해 구간에서 제일 최근 초기화 날짜)
-            if (*lastDay == e) {
-                cout << prefix[e] << endl;
-            }
-            else {
-                cout << prefix[e] - prefix[max(*lastDay, s - 1)] << endl;
-            }
+            cout << prefix[e] - prefix[max(*lastDay, s - 1)] << endl;
         }
     }
     return 0;
