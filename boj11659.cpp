@@ -3,7 +3,7 @@
 #define fast ios::sync_with_stdio(0),cin.tie(nullptr),cout.tie(nullptr)
 /*
 	https://www.acmicpc.net/problem/11659
-	11659¹ø ±¸°£ ÇÕ ±¸ÇÏ±â 4
+	11659ë²ˆ êµ¬ê°„ í•© êµ¬í•˜ê¸° 4
 */
 using namespace std;
 int n, m;
