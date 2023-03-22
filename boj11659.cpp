@@ -3,6 +3,7 @@
 #define fast ios::sync_with_stdio(0),cin.tie(nullptr),cout.tie(nullptr)
 /*
 	https://www.acmicpc.net/problem/11659
+	11659번 구간 합 구하기 4
 */
 using namespace std;
 int n, m;
