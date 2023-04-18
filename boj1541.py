@@ -1,5 +1,7 @@
 '''
 숫자들을 끊어서 정리할 필요가 있을듯
+https://www.acmicpc.net/problem/1541
+1541번 잃어버린 괄호
 '''
 word=input()
 answer=idx=0
