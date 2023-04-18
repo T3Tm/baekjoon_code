@@ -17,11 +17,9 @@ int main() {
 		long long one = *min_element(arr, arr + 6);
 		long long two = 1000;
 		for (int i = 1; i < 5; i++)two = min({ two,arr[0] + arr[i], arr[5] + arr[i] });
-		for (auto [x, y] : { pair{1,2},pair{1,3},pair{2,4},pair{3,4} }) {
-			two = min(two, arr[x] + arr[y]);
-		}
 		long long three = 1500;
 		for (auto [x, y] : { pair{1,2},pair{1,3},pair{2,4},pair{3,4} }) {
+			two = min(two, arr[x] + arr[y]);
 			three = min({ three,arr[0] + arr[x] + arr[y],arr[5] + arr[x] + arr[y] });
 		}
 		answer = 4 * three + two * 4 * (n - 1 + n - 2) + one * (n - 2) * ((n - 1) * 4 + n - 2);
