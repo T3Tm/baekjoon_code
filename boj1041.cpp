@@ -4,6 +4,7 @@
 /*
 	https://www.acmicpc.net/problem/1041
 	1041번 주사위
+	test
 */
 using namespace std;
 int n;
