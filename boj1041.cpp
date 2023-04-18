@@ -1,14 +1,14 @@
-#include <bits/stdc++.h>
+ï»¿#include <bits/stdc++.h>
 #define endl '\n'
 #define fast ios::sync_with_stdio(0),cin.tie(nullptr),cout.tie(nullptr)
 /*
 	https://www.acmicpc.net/problem/1041
-	1041¹ø ÁÖ»çÀ§
+	1041ë²ˆ ì£¼ì‚¬ìœ„
 	test
 */
 using namespace std;
 int n;
-long long arr[8];//6°³ÀÇ ÀÔ·Â
+long long arr[8];//6ê°œì˜ ìž…ë ¥
 long long answer;
 int main() {
 	fast; cin >> n;
