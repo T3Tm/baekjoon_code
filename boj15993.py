@@ -32,9 +32,7 @@ import sys
 input=sys.stdin.readline
 MOD=int(1e9+9)
 dp=[[0,0]for _ in[0]*100001]
-dp[1]=[1,0]
-dp[2]=[1,1]
-dp[3]=[2,2]
+dp[1],dp[2],dp[3]=[1,0],[1,1],[2,2]
 for i in range(4,100001):
     dp[i][1]=(dp[i-1][0]+dp[i-2][0]+dp[i-3][0])%MOD
     dp[i][0]=(dp[i-1][1]+dp[i-2][1]+dp[i-3][1])%MOD
