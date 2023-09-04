@@ -1,88 +1,45 @@
-#include <stdio.h>
-#include <string.h>
-
-char a[81];
-char b[81];
-char result[85];
-
-void reverse(char a[])
-{
-	int i, len;
-	len = strlen(a);
-	for (i = 0; i < len / 2; i++)
-	{
-		char temp = a[i];
-		a[i] = a[len - 1 - i];
-		a[len - i - 1] = temp;
-	}
-}
-
-void sum(char* a, char* b) {
-	int i, longlen, shortlen, plus = 0, sum = 0;
-    int a_len=strlen(a);
-    int b_len=strlen(b);
-	longlen = a_len>b_len ? a_len : b_len;
-	shortlen = a_len>b_len ? b_len:a_len;
-	reverse(a);
-	reverse(b);
-
-	for (i = 0; i < longlen; i++)
-	{
-		if (i < shortlen) {  //둘다 값이 있을 떄
-			sum = (a[i] - '0') + (b[i] - '0') + plus;
-			if (sum > 1)
-				plus = 1; //plus는 다음 값 1추가 해야할때 쓰는 변수
-			else
-				plus = 0;
-		}
-		else  //둘 중 하나가 없음
-		{
-            if(a_len>b_len){
-                sum = a[i] - '0' + plus;
-				if (sum > 1)
-					plus = 1;
-				else
-					plus = 0;
-            }else{
-                sum = b[i] - '0' + plus;
-				if (sum > 1)
-					plus = 1;
-				else
-					plus = 0;
+#pragma GCC target("avx,avx2,fma")
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
+#pragma GCC optimize("O3")
+#include <bits/stdc++.h>
+#define fast ios::sync_with_stdio(0),cin.tie(0)
+#define endl '\n' 
+/*
+    https://www.acmicpc.net/problem/6549
+    6549번 히스토그램에서 가장 큰 직사각형
+    
+    작은 값을 유지할 수 있도록
+    
+    왼쪽부터 시작해서
+    자기보다 작은 값이 나오면 자신의 인덱스에다가 * 현재 i 곱해서 계산하면 직사각형 나옴
+    결과는 result로 나오게 함.
+*/
+typedef long long ll;
+using namespace std;
+int main(){
+    fast;
+    while(1){
+        int n;cin >> n;
+        if(n==0)break;
+        ll arr[100003]{};
+        for(int i=1;i<=n;i++)cin >> arr[i];
+        stack<pair<int,int>>s;//자신보다 큰 값이면 나가긴 하나 자기보다 큰 값을 오른쪽에 계속 저장
+        ll result=0;
+        int maxInsert=0;
+        for(int i=1;i<=n;i++){
+            maxInsert=i;
+            while(!s.empty() && arr[s.top().first] >= arr[i]){
+                auto[idx,maxIdx]=s.top();s.pop();
+                result=max(result,(i-maxIdx)*arr[idx]);//큰 것은 지금까지의 값을 계산
+                maxInsert=maxIdx;
             }
-		}
-		result[i] = sum % 2 + '0';
-	}
-
-	if (plus == 1)
-		result[longlen] = '1';
-
-	reverse(result);
-	//쓸모없는 0을 지우는 코드
-	int check = 0;
-	for (i = 0; i < strlen(result); i++) {
-		if (result[i] == '1') {
-			check = 1;
-			printf("%c", result[i]);
-		}
-		if (result[i] == '0' && check == 1)
-			printf("%c", result[i]);
-	}
-
-	if (check == 0)
-		printf("0\n");
-	else
-		printf("\n");
-}
-
-int main()
-{
-	int n, i;
-	scanf("%d", &n);
-	for (i = 0; i < n; i++) {
-		scanf("%s %s", a, b);
-		for (int i = 0; i < 85; i++)
-			result[i] = '\0';
-		sum(a, b);
-	}
+            s.push({i,maxInsert});
+        }
+        while(!s.empty()){
+            auto[idx,maxIdx]=s.top();s.pop();
+            result=max(result,(n-maxIdx+1)*arr[idx]);
+        }
+        cout << result << endl;
+    }
 }
