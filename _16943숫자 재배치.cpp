@@ -10,25 +10,25 @@
 */
 using namespace std;
 int a, b,result=-1;
-vector<int>numbers;
+vector<int>Numb;
 int main() {
 	fast;
 	cin >> a >> b;
 	while (a) {
-		numbers.push_back(a % 10);
+		Numb.push_back(a % 10);
 		a /= 10;
 	}
-	sort(numbers.begin(),numbers.end());
+	sort(Numb.begin(),Numb.end());
 	do {
-		if (numbers[0] == 0)continue;
+		if (Numb[0] == 0)continue;
 		int c = 0;
-		for (auto value : numbers) {//숫자 뽑아내기
+		for (auto value : Numb) {//숫자 뽑아내기
 			c = c * 10 + value;
 		}
 		if (b > c) {
 			result = max(c, result);
 		}
-	} while (next_permutation(numbers.begin(), numbers.end()));
+	} while (next_permutation(Numb.begin(), Numb.end()));
 	cout << result;
 	return 0;
 }
