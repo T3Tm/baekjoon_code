@@ -26,7 +26,7 @@ void inputs() {
     scanf("%d %d", &n, &m);
     for (int i = 0; i < n; i++) scanf("%s", board[i]);
 }
-int right(int x, int y, int cnt, bool visited[][10]) {
+int right(int x, int y, int cnt, int visited[10]) {
     // 현재 좌표로 부터 얼만큼 오른쪽으로 자를 것인지 확인
     int ret = 0;
     for (int i = 0; i < cnt; i++) {  // cnt갯수 만큼 자를 것이다.
@@ -34,60 +34,60 @@ int right(int x, int y, int cnt, bool visited[][10]) {
             ret = -1;
             break;
         }
-        if (visited[x][y + i]) {  // 이미 다른 곳에서 잘라서 사용하고 있음
+        if (visited[x] & (1 << y + i)) {  // 이미 다른 곳에서 잘라서 사용하고 있음
             ret = -1;
             break;
         }
     }
     if (!ret) {
         for (int i = 0; i < cnt; i++) {  // cnt갯수 만큼 자를 것이다.
-            visited[x][y + i] = true;
             ret = ret * 10 + board[x][y + i] - '0';
         }
+        visited[x] |= (((unsigned)-1) >> (32 - cnt)) << y;
     }
     return ret;
 }
-int down(int x, int y, int cnt, bool visited[][10]) {
+int down(int x, int y, int cnt, int visited[10]) {
     int ret = 0;
     for (int i = 0; i < cnt; i++) {  // cnt갯수 만큼 자를 것이다.
         if (x + i >= n) {
             ret = -1;
             break;
         }
-        if (visited[x + i][y]) {  // 이미 다른 곳에서 잘라서 사용하고 있음
+        if (visited[x + i] & (1 << y)) {  // 이미 다른 곳에서 잘라서 사용하고 있음
             ret = -1;
             break;
         }
     }
     if (!ret) {
         for (int i = 0; i < cnt; i++) {  // cnt갯수 만큼 자를 것이다.
-            visited[x + i][y] = true;
+            visited[x + i] |= (1 << y);
             ret = ret * 10 + board[x + i][y] - '0';
         }
     }
     return ret;
 }
-void restore(bool visited[][10], int row, int col, int repeat, bool isRight) {
-    for (int i = 0; i < repeat; i++) {
-        if (isRight) {
-            visited[row][col + i] = false;
-        } else {
-            visited[row + i][col] = false;
+void restore(int visited[10], int row, int col, int repeat, bool isRight) {
+    if (isRight) {
+        visited[row] &= ~((((unsigned)-1) >> 32 - repeat) << col);  // (col ~  col + repeat - 1)
+    } else {
+        for (int i = 0; i < repeat; i++) {
+            visited[row + i] &= ~(1 << col);
         }
     }
 }
-void back(int number, int prex, int prey, bool visited[][10], int isEnd) {
+void back(int number, int prex, int prey, int visited[10], int isEnd) {
     if (isEnd == n * m) {  // 16번
         res = max(res, number);
         return;
     }
     for (int row = prex; row < n; row++) {  // 16
         for (int col = prey; col < m; col++) {
-            if (visited[row][col]) continue;  // 당연히 현재 좌표의 값이 이미 가져간 값이라면 또 넣으면 안된다.
-            if (board[row][col] == '0') {     // 그냥 넌 혼자서 잘라.
-                visited[row][col] = true;
+            if (visited[row] & (1 << col)) continue;  // 당연히 현재 좌표의 값이 이미 가져간 값이라면 또 넣으면 안된다.
+            if (board[row][col] == '0') {             // 그냥 넌 혼자서 잘라.
+                visited[row] |= (1 << col);
                 back(number, row, col + 1, visited, isEnd + 1);
-                visited[row][col] = false;
+                visited[row] &= ~(1 << col);
             } else {
                 for (int repeat = 1; repeat <= m; repeat++) {
                     int Plus = right(row, col, repeat, visited);                          // 오른쪽으로 가기
@@ -113,7 +113,7 @@ void back(int number, int prex, int prey, bool visited[][10], int isEnd) {
     }
 }
 void solve() {
-    bool visited[10][10] = {};
+    int visited[10] = {};
     back(0, 0, 0, visited, 0);
     printf("%d", res);
 }
