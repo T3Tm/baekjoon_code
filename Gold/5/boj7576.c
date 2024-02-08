@@ -107,8 +107,10 @@ int bfs() {
                 res = visited[next->x][next->y];
             }
         }
+        free(cur);
         free(ret);
     }
+    free(q);
     return res;
 }
 void solve() {
