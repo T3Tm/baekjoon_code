@@ -92,6 +92,8 @@ int bfs() {
             visited[next->fire][next->x][next->y] = visited[now->fire][now->x][now->y] + next->fire;
             push(q, next);
         }
+        free(now);
+        free(ret);
     }
     return visited[0][n - 1][m - 1];
 }
