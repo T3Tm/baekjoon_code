@@ -3,5 +3,6 @@
 testCaseMake/
 .cph/
 *.dSYM/
-*.out
 *.bin
+test.*
+*.txt
